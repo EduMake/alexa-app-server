@@ -1,6 +1,6 @@
 var hotswap = require('hotswap');
 var fs = require('fs');
-var path = path = require('path');
+var path = require('path');
 var http = require('http');
 var https = require('https');
 var express = require('express');
@@ -126,6 +126,27 @@ var appServer = function(config) {
 						}
 						else if (typeof req.param('utterances')!="undefined") {
 							res.set('Content-Type', 'text/plain').send(app.utterances());
+						}
+						else if (typeof req.param('pages')!="undefined") {
+							oWikiaHelper = app.getHelper();
+							oWikiaHelper.getWords().then(function(aData) {
+								res.set('Content-Type', 'text/plain').send(aData.join("\n"));
+							});
+						}
+						else if (typeof req.param('intentionwords')!="undefined") {
+							var iTarget = 100;
+							if (typeof req.param('target')!="undefined") {
+								iTarget = req.param('target');
+							}
+							oWikiaHelper = app.getHelper();
+							var sIntention = req.param('intentionwords');
+							var sWords = oWikiaHelper.getIntentionCatergories(sIntention);
+							if(!sWords){
+								res.set('Content-Type', 'text/plain').send("");
+							} 
+							oWikiaHelper.getCatergoriesWords(sWords, iTarget).then(function(aData) {
+								res.set('Content-Type', 'text/plain').send(aData.join("\n"));
+							});
 						}
 						else {
 							res.render('test',{"app":app,"schema":app.schema(),"customSlotTypes":(app.customSlotTypes?app.customSlotTypes():""),"utterances":app.utterances(),"intents":app.intents});

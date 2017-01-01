@@ -149,7 +149,8 @@ var appServer = function(config) {
 							});
 						}
 						else {
-							res.render('test',{"app":app,"schema":app.schema(),"customSlotTypes":(app.customSlotTypes?app.customSlotTypes():""),"utterances":app.utterances(),"intents":app.intents});
+							oWikiaHelper = app.getHelper();
+							res.render('test',{"app":app,"schema":app.schema(),"customSlotTypes":(app.customSlotTypes?app.customSlotTypes():""),"utterances":app.utterances(),"intents":app.intents,"wikialists":oWikiaHelper.oListWikiaCatergories});
 						}
 					});
 				}
@@ -255,19 +256,18 @@ var appServer = function(config) {
 					var privateKey  = fs.readFileSync(privateKeyFile, 'utf8');
 					var certificate = fs.readFileSync(certificateFile  , 'utf8');
 
-						if(privateKey != undefined && certificate != undefined) {
-							var credentials = {key: privateKey, cert: certificate};
+					if(privateKey != undefined && certificate != undefined) {
+						var credentials = {key: privateKey, cert: certificate};
 
-									try { //The line below can fail it the certs were generated incorrectly. But we can continue startup without HTTPS
-									https.createServer(credentials, self.express).listen(config.httpsPort); //create the HTTPS server
-									self.log("Listening on HTTPS port " + config.httpsPort);
-								}catch(error) {
-									self.log("Failed to listen via HTTPS Error: " + error);
-								}
-						} else {
+							try { //The line below can fail it the certs were generated incorrectly. But we can continue startup without HTTPS
+								https.createServer(credentials, self.express).listen(config.httpsPort); //create the HTTPS server
+								self.log("Listening on HTTPS port " + config.httpsPort);
+							}catch(error) {
+								self.log("Failed to listen via HTTPS Error: " + error);
+							}
+					} else {
 						self.log("Failed to load privateKey or certificate from /sslcert. HTTPS will not be enabled");
-
-						}
+					}
 
 				} else {
 				self.log("privateKey: '" + config.privateKey +  "' or certificate: '" + config.certificate + "' do not exist in /sslcert. HTTPS will not be enabled");

@@ -447,6 +447,7 @@ e.$validators.maxlength=function(a,c){return 0>f||e.$isEmpty(c)||c.length<=f}}}}
 </div>
 
 <h2>Schema</h2>
+<a href="?schema" target="_blank">Schema</a>
 <div>
 	<div id="schema" class="code">{{schema|json}}</div>
 </div>
@@ -457,9 +458,17 @@ e.$validators.maxlength=function(a,c){return 0>f||e.$isEmpty(c)||c.length<=f}}}}
 </div>
 
 <h2>Utterances</h2>
+<a href="?utterances" target="_blank">Utterances</a>
 <div>
 	<div id="utterances" class="code" style="max-height:500px;overflow:auto;"><%=utterances%></div>
 </div>
 
+<h2>Word Lists</h2>
+<ol>
+    <li><a href="?pages" target="-blank">Popular pages</a>, to copy into the LIST_OF_PAGES slot type in the Alexa Skill Setup</li>
+    <li><a href="?intentionwords=who" target="-blank">Popular characters</a>, to copy into the LIST_OF_WHO slot type in the Alexa Skill Setup</li>
+    <li><a href="?intentionwords=what" target="-blank">Popular things</a>, to copy into the LIST_OF_WHAT slot type in the Alexa Skill Setup</li>
+    <li><a href="?intentionwords=lists" target="-blank">Popular lists</a>, to copy into the LIST_OF_LISTS slot type in the Alexa Skill Setup</li>
+</ol>
 	</body>
 </html>

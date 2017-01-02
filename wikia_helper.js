@@ -87,7 +87,7 @@ WikiaHelper.prototype.getList = function(sSubject) {
       //fs.writeFile("response.json", JSON.stringify(oResponse, null, 4));
       if(oResponse.items.length > 0){
         return oResponse.items.map(function(oItem){
-          console.log("oItem", oItem.title)
+          //console.log("oItem", oItem.title)
           var TitleParts =  oItem.title.split(/[\/\(\,]/);
           return TitleParts[0].trim();
         })
